@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("partials/head.ejs") %>
+</head>
+
+<body>
+    <%- include("./partials/nav.ejs") %>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col">
+                    <h1>Nouvel album</h1>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col">
+                    <form method="POST" action="/albums/create">
+                        <div class="form-group">
+                            <!-- class="row g-3 needs-validation" novalidate -->
+                            <!-- <label for="">Titre</label> -->
+                            <!-- <input class="form-control" type="text" name="albumTitle" id=""
+                                "> -->
+                            <!-- <label for="validationCustom01" class="form-label">Titre</label> -->
+                            <label>Titre</label>
+                            <input type="text" class="form-control" name="albumTitle" autofocus
+                                placeholder="Titre de votre nouvel album">
+                            <!-- <input type="text" class="form-control" id="validationCustom01" name="albumTitle" autofocus> -->
+                            <!-- aria-describedby="inputGroupPrepend" required -->
+                            <!-- <div class="invalid-feedback">
+                                Veuillez saisir le titre de votre nouvel album
+                            </div> -->
+
+                        </div>
+
+                        <!-- <div class="alert alert-danger mt-4 mb-2" role="alert">
+                            Veuillez saisir le titre de votre nouvel album
+                        </div> -->
+
+
+                        <div class="col-md-8">
+                            <button class="btn btn-primary mt-4" type="submit">Créer</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <%- include("./partials/scripts.ejs") %>
+</body>
+
+</html>

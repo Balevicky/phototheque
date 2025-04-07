@@ -2,19 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const path = require("path");
+const albumRoutes = require("./routes/album.routes");
+
 const port = 3000;
 
 // ========= connexion à la base de données Mongodb
 mongoose.connect("mongodb://localhost:27017/phototheque");
+// =========== pour recuperer les données de Body
+app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 // ========= config ejs
-app.set("view engin", "ejs");
+app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 // ========= fichier static
 app.use(express.static("public"));
 //=============== METHODE GET
-app.get("/", (req, res) => {
-  res.send("Hello world !!!");
-});
+// app.get("/", (req, res) => {
+//   res.render("album", { title: "Album" });
+// });
+app.use("/", albumRoutes);
 
 // ============== page non trouvée
 app.use((req, res) => {
