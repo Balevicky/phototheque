@@ -37,9 +37,9 @@ app.use(
 app.use(flash());
 
 //=============== METHODE GET
-// app.get("/", (req, res) => {
-//   res.render("album", { title: "Album" });
-// });
+app.get("/", (req, res) => {
+  res.redirect("/albums");
+});
 app.use("/", albumRoutes);
 
 // ============== page non trouvée
