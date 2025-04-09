@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
+const fileUpload = require("express-fileupload");
 const app = express();
 const path = require("path");
 const albumRoutes = require("./routes/album.routes");
@@ -15,6 +16,9 @@ mongoose.connect("mongodb://localhost:27017/phototheque");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// ========= pour le televersement des fichiers
+app.use(fileUpload());
+
 // ========= config ejs
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -26,7 +30,7 @@ app.use(express.static("public"));
 app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
-    // secret: "keyboard cat",
+    secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
     // cookie: { secure: true },// NE PAS UTILISER EN DEVEPPEMENT
