@@ -10,4 +10,6 @@ router.get("/albums/create", albumController.createAlbumForm);
 
 router.post("/albums/create", albumController.createAlbumPost);
 
+router.get("/albums/:id/delete/:imageIndex", albumController.deleteImage);
+
 module.exports = router;

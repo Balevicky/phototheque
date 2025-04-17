@@ -2,6 +2,8 @@ const Album = require("../models/Album");
 const path = require("path");
 const fs = require("fs");
 const { error } = require("console");
+
+
 const createAlbums = async (req, res) => {
   const albums = await Album.find({});
   // console.log(albums);
@@ -16,7 +18,7 @@ const album = async (req, res) => {
   try {
     const idAlbum = req.params.id;
     const album = await Album.findById(idAlbum);
-    console.log(album);
+    // console.log(album);
     res.render("album", {
       title: `Mon album ${album.title}`,
       album,
@@ -32,7 +34,7 @@ const addImage = async (req, res) => {
   // ==============
   const idAlbum = req.params.id;
   const album = await Album.findById(idAlbum);
-  console.log(req.files);
+  // console.log(req.files);
   // ------------ gestion des erreurs
   if (!req?.files?.image) {
     req.flash("error", "Veuillez sélectionner une image");
@@ -88,6 +90,27 @@ const createAlbumPost = async (req, res) => {
     res.redirect("/albums/create");
   }
 };
+// ============
+const deleteImage = async (req, res) => {
+  const idAlbum = req.params.id;
+  const album = await Album.findById(idAlbum);
+  const imageIndex = req.params.imageIndex;
+  const image = album.images[imageIndex];
+  console.log(image);
+
+  if (!image) {
+    res.redirect(`/albums/${idAlbum}`);
+
+    return;
+  }
+
+  album.images.splice(imageIndex, 1);
+  await album.save();
+  //  supprimer l'image dans le repertoire
+  const imagePath = path.join(__dirname, "../public/upload", idAlbum, image);
+  fs.unlinkSync(imagePath);
+  res.redirect(`/albums/${idAlbum}`);
+};
 
 module.exports = {
   createAlbums,
@@ -95,4 +118,5 @@ module.exports = {
   addImage,
   createAlbumForm,
   createAlbumPost,
+  deleteImage,
 };
